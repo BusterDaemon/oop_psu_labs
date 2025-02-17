@@ -1,0 +1,20 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+Language: Cpp
+AlignAfterOpenBracket: BAS_BlockIndent
+AlignArrayOfStructures: AIAS_Right
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveAssignments:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+AlignConsecutiveBitFields: Consecutive
+AlignConsecutiveBitFields:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+AlignConsecutiveDeclarations: Consecutive
+AlignConsecutiveDeclarations:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true

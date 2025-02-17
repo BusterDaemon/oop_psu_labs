@@ -1,8 +1,5 @@
 #include "lab1.hxx"
-#include <ostream>
-#include <stdio.h>
 #include <string>
-#include <iostream>
 
 void product::set_name(std::string name) { this->name = name; }
 
@@ -43,7 +40,7 @@ product::product(std::string name, std::string manuf, float pr, int goden,
   this->count = count;
 }
 
-product::product(product &p) {
+product::product(const product &p) {
   name = p.name;
   manufacturer = p.manufacturer;
   price = p.price;
@@ -51,14 +48,4 @@ product::product(product &p) {
   count = p.count;
 }
 
-product::~product() {
-}
-
-int main(void) { 
-
-    product *pid = new product("checker", "golden", 32.21, 43, 11);
-    std::cout << pid->get_name() << " " << pid->get_manufacturer() << " " << pid->get_price() << " " << pid->get_goden() << " " << pid->get_count() << std::endl;
-    
-    return 0; 
-    
-    }
+product::~product() {}
