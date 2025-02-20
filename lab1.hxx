@@ -1,10 +1,20 @@
+#pragma once
+
 #ifndef _LAB1_HXX_
 #define _LAB1_HXX_
 
 #include <string>
 
+class product;
+
+class Observer {
+  public:
+    void GetInfo(const product &p);
+};
+
 class product {
 private:
+  friend class Observer;
   std::string name;
   std::string manufacturer;
   float price;
@@ -16,6 +26,9 @@ public:
   product(std::string name, std::string manuf, float pr, int goden, int count);
   product(const product &p);
   ~product();
+  product operator=(const product &p);
+  bool operator==(const product &p);
+  bool operator!=(const product &p);
   void set_name(std::string name);
   std::string get_name();
   void set_manufacturer(std::string manuf);

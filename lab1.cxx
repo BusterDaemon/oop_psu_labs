@@ -1,5 +1,6 @@
 #include "lab1.hxx"
 #include <string>
+#include <iostream>
 
 void product::set_name(std::string name) { this->name = name; }
 
@@ -49,3 +50,40 @@ product::product(const product &p) {
 }
 
 product::~product() {}
+
+product product::operator=(const product &p) {
+  this->count = p.count;
+  this->goden_do = p.goden_do;
+  this->manufacturer = p.manufacturer;
+  this->name = p.name;
+  this->price = p.price;
+  return *this;
+}
+
+bool product::operator==(const product &p) {
+  if (this->count == p.count && this->goden_do == p.goden_do &&
+      this->manufacturer == p.manufacturer && this->name == p.name &&
+      this->price == p.price) {
+    return true;
+  }
+
+  return false;
+}
+
+bool product::operator!=(const product &p) {
+  if (this->count == p.count && this->goden_do == p.goden_do &&
+      this->manufacturer == p.manufacturer && this->name == p.name &&
+      this->price == p.price) {
+    return false;
+  }
+
+  return true;
+}
+
+void Observer::GetInfo(const product &p) {
+  std::cout << "Наименование: " << p.name << "\n";
+  std::cout << "Производитель: " << p.manufacturer << "\n";
+  std::cout << "Стоимость: " << p.price << "\n";
+  std::cout << "Годен до (в днях): " << p.goden_do << "\n";
+  std::cout << "Осталось: " << p.count << "\n\n";
+}
