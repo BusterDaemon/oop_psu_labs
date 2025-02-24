@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_BUILD_TYPE Debug)
 
-add_library(lab1 lab1.cxx)
+add_library(lab3 lab3.cxx)
 add_executable(lab main.cxx)
-target_link_libraries(lab lab1)
+target_link_libraries(lab lab3)
