@@ -10,7 +10,7 @@ public:
   izdanie();
   ~izdanie();
   char *get_name();
-  void set_name(const char *name);
+  void set_name(char *name);
 };
 
 class book : public izdanie {
@@ -23,11 +23,11 @@ public:
   book();
   ~book();
   char *get_author();
-  void set_author(const char *author);
+  void set_author(char *author);
   char *get_theme();
-  void set_theme(const char *theme);
+  void set_theme(char *theme);
   char *get_izdanie();
-  void set_izdanie(const char *izdanie);
+  void set_izdanie(char *izdanie);
 };
 
 class textbook : public book {
