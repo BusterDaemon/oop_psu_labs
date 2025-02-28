@@ -8,9 +8,10 @@ private:
 
 public:
   izdanie();
+  izdanie(char *name);
   ~izdanie();
   char *get_name();
-  void set_name(char *name);
+  void set_name(char *);
 };
 
 class book : public izdanie {
@@ -21,35 +22,40 @@ private:
 
 public:
   book();
+  book(char *name, char *author, char *theme, char *izdanie);
   ~book();
   char *get_author();
-  void set_author(char *author);
+  void set_author(char *);
   char *get_theme();
-  void set_theme(char *theme);
+  void set_theme(char *);
   char *get_izdanie();
-  void set_izdanie(char *izdanie);
+  void set_izdanie(char *);
 };
 
-class textbook : public book {
+class textbook final : public book {
 private:
   uint form;
 
 public:
   textbook();
+  textbook(char *name, char *author, char *theme, char *izdanie,
+           const uint form);
   ~textbook();
   uint get_form();
-  void set_form(const uint form);
+  void set_form(const uint);
 };
 
-class journal : book {
+class journal final : book {
 private:
   float price;
 
 public:
   journal();
+  journal(char *name, char *author, char *theme, char *izdanie,
+          const float price);
   ~journal();
   float get_price();
-  void set_price(const float price);
+  void set_price(const float);
 };
 
 #endif
