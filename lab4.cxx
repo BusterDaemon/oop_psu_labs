@@ -1,7 +1,9 @@
 #include "lab4.hxx"
+#include <algorithm>
 #include <iostream>
 #include <memory>
 #include <stdlib.h>
+#include <unordered_set>
 #include <utility>
 
 template <typename T> set<T>::set() {
@@ -93,6 +95,38 @@ template <typename T> set<T> set<T>::operator-(const T &elem) {
   return std::move(upd_set);
 }
 
-template <typename T> bool set<T>::operator>(set<T> other_set) {}
+template <typename T> bool set<T>::operator>(set<T> &other_set) const {
+  std::unordered_set<T> main_set;
+  const set<T> &main_src = this->count > other_set.count ? *this : other_set;
+  const set<T> &sec_src = this->count > other_set.count ? other_set : *this;
 
-template <typename T> bool set<T>::operator!=(set<T> other_set) {}
+  if (sec_src.count == 0)
+    return true;
+
+  for (size_t i = 0; i < main_src.count; i++) {
+    main_set.insert(main_src.elements[i]);
+  }
+
+  return std::all_of(sec_src.elements.get(),
+                     sec_src.elements.get() + sec_src.count,
+                     [&main_set](const T &elem) {
+                       return main_set.find(elem) != main_set.end();
+                     });
+}
+
+template <typename T> bool set<T>::operator!=(set<T> &other_set) const {
+  if (this->count != other_set.count)
+    return true;
+
+  std::unordered_set<T> main_set;
+  for (size_t i = 0; i < this->count; i++) {
+    main_set.insert(this->elements[i]);
+  }
+
+  for (size_t i = 0; i < other_set.count; i++) {
+    if (main_set.find(other_set.elements[i]) == main_set.end())
+      return true;
+  }
+
+  return false;
+}

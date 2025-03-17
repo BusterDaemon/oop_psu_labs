@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <stddef.h>
-
 template <typename T> class set {
 private:
   std::unique_ptr<T[]> elements;
@@ -17,8 +16,8 @@ public:
   set &operator=(set &&other) noexcept;
   void add_elem(T elem);
   set<T> operator-(const T &elem);
-  bool operator>(set other_set);
-  bool operator!=(set other_set);
+  bool operator>(set &other_set) const;
+  bool operator!=(set &other_set) const;
   void print();
 };
 
