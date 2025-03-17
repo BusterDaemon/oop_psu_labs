@@ -37,18 +37,14 @@ template <typename T> void set<T>::add_elem(T elem) {
   size_t upd_size = this->count + 1;
   std::unique_ptr<T[]> upd_arr(new T[upd_size]);
 
-  if (this->elements != nullptr) {
-    for (size_t i = 0; i < this->count; i++) {
-      upd_arr[i] = std::move(this->elements[i]);
-    }
-    upd_arr[this->count] = std::move(elem);
-    this->count = upd_size;
-    this->elements = std::move(upd_arr);
-    return;
+  for (size_t i = 0; i < this->count; i++) {
+    upd_arr[i] = std::move(this->elements[i]);
   }
 
-  upd_arr[this->count - 1] = std::move(elem);
+  upd_arr[this->count] = std::move(elem);
+
   this->elements = std::move(upd_arr);
+  this->count = upd_size;
 }
 
 template <typename T> void set<T>::print() {
@@ -129,4 +125,11 @@ template <typename T> bool set<T>::operator!=(set<T> &other_set) const {
   }
 
   return false;
+}
+
+template <typename T> void set<T>::clear() {
+  this->count = 0;
+
+  std::unique_ptr<T[]> upd_ptr = nullptr;
+  this->elements.reset();
 }

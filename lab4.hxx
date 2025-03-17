@@ -14,11 +14,12 @@ public:
   ~set();
   set(set &&other) noexcept;
   set &operator=(set &&other) noexcept;
-  void add_elem(T elem);
   set<T> operator-(const T &elem);
   bool operator>(set &other_set) const;
   bool operator!=(set &other_set) const;
+  void add_elem(T elem);
   void print();
+  void clear();
 };
 
 #endif
