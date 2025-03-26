@@ -10,5 +10,6 @@ if(DEFINED SANITIZE)
 endif(DEFINED SANITIZE)
 
 add_library(lab4 lab4.cxx)
+add_library(excepts excepts.cxx)
 add_executable(lab main.cxx)
-target_link_libraries(lab lab4)
+target_link_libraries(lab lab4 excepts)

@@ -1,20 +1,16 @@
 #include "lab4.hxx"
+#include "excepts.hxx"
 #include <algorithm>
 #include <iostream>
 #include <memory>
 #include <new>
 #include <stddef.h>
-#include <stdexcept>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unordered_set>
 #include <utility>
 
 #define _BAD_MEMORY_TEXT "Ошибка выделения памяти: "
-#define _BAD_ARGUMENT_TEXT "Аргумент не может ссылаться на NULL\n"
-#define _BAD_ARG_OR_SIZE_TEXT                                                  \
-  "Аргумент не должен ссылаться на NULL или иметь размер меньше 1.\n"
-#define _BAD_OUT_OF_INDEX_ARRAY "Выход за пределы массива\n"
 
 template <typename T> set<T>::set() {
   this->count = 0;
@@ -55,7 +51,7 @@ template <typename T> void set<T>::add_elem(T elem) {
     for (size_t i = 0; i < this->count; i++) {
       upd_arr[i] = std::move(this->elements[i]);
       if (i >= this->count) {
-        throw std::overflow_error(_BAD_OUT_OF_INDEX_ARRAY);
+        throw MemoryExcept(MemoryType::OUT_OF_BOUNDS);
       }
     }
 
@@ -70,13 +66,12 @@ template <typename T> void set<T>::add_elem(T elem) {
 
 template <typename T> void set<T>::print() {
   if (this->elements == nullptr || this->count < 1) {
-    throw std::invalid_argument(_BAD_ARG_OR_SIZE_TEXT);
+    throw MemoryExcept(MemoryType::NO_ELEMENTS_ARRAY);
   }
 
   for (size_t i = 0; i < this->count; i++) {
     if (i >= this->count)
-      throw std::overflow_error(_BAD_OUT_OF_INDEX_ARRAY);
-
+      throw MemoryExcept(MemoryType::OUT_OF_BOUNDS);
     std::cout << this->elements[i];
     if (i < this->count - 1)
       std::cout << ", ";
@@ -92,7 +87,7 @@ template <typename T> set<T> set<T>::operator-(const T &elem) {
   uint32_t occurences = 0;
   for (size_t i = 0; i < this->count; i++) {
     if (i >= this->count)
-      throw std::overflow_error(_BAD_OUT_OF_INDEX_ARRAY);
+      throw MemoryExcept(MemoryType::OUT_OF_BOUNDS);
 
     if (this->elements[i] == elem) {
       occurences = occurences + 1;
@@ -110,7 +105,7 @@ template <typename T> set<T> set<T>::operator-(const T &elem) {
     std::unique_ptr<T[]> upd_arr(new T[upd_size]);
     for (size_t i = 0; i < upd_size; i++) {
       if (i >= upd_size)
-        throw std::overflow_error(_BAD_OUT_OF_INDEX_ARRAY);
+        throw MemoryExcept(MemoryType::OUT_OF_BOUNDS);
 
       if (this->elements[i] != elem)
         upd_arr[i] = std::move(this->elements[i]);
@@ -135,7 +130,7 @@ template <typename T> bool set<T>::operator>(set<T> &other_set) const {
 
   for (size_t i = 0; i < main_src.count; i++) {
     if (i >= main_src.count)
-      throw std::overflow_error(_BAD_OUT_OF_INDEX_ARRAY);
+      throw MemoryExcept(MemoryType::OUT_OF_BOUNDS);
 
     main_set.insert(main_src.elements[i]);
   }
@@ -155,12 +150,12 @@ template <typename T> bool set<T>::operator!=(set<T> &other_set) const {
   for (size_t i = 0; i < this->count; i++) {
     main_set.insert(this->elements[i]);
     if (i >= this->count)
-      throw std::overflow_error(_BAD_OUT_OF_INDEX_ARRAY);
+      throw MemoryExcept(MemoryType::OUT_OF_BOUNDS);
   }
 
   for (size_t i = 0; i < other_set.count; i++) {
     if (i >= other_set.count)
-      throw std::overflow_error(_BAD_OUT_OF_INDEX_ARRAY);
+      throw MemoryExcept(MemoryType::OUT_OF_BOUNDS);
     if (main_set.find(other_set.elements[i]) == main_set.end())
       return true;
   }

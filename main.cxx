@@ -1,7 +1,7 @@
 #include "lab4.cxx"
 #include "lab4.hxx"
+#include <exception>
 #include <iostream>
-#include <stdexcept>
 
 #define _UINPUT_ADD "\nВведите элемент который хотите добавить: "
 #define _UINPUT_SUB "\nВведите элемент который хотите удалить: "
@@ -78,10 +78,8 @@ int main(void) {
 
       varik = 0;
       uinput = 0;
-    } catch (const std::overflow_error &e) {
-      cerr << "Переполнение: " << e.what() << "\n";
-    } catch (const std::invalid_argument &e) {
-      cerr << "Передан неверный аргумент: " << e.what() << "\n";
+    } catch (const std::exception &e) {
+      cerr << "Ошибка исполнения программы: " << e.what() << "\n";
     }
   }
 
