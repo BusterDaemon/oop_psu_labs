@@ -35,15 +35,11 @@ template <typename T> set<T>::set(T elem) {
 template <typename T> set<T>::~set() {}
 
 template <typename T> set<T>::set(set &&other) noexcept {
-  if (other.elements == nullptr)
-    throw std::invalid_argument(_BAD_ARGUMENT_TEXT);
   this->elements = std::move(other.elements);
   this->count = other.count;
 }
 
 template <typename T> set<T> &set<T>::operator=(set<T> &&other) noexcept {
-  if (other.elements == nullptr)
-    throw std::invalid_argument(_BAD_ARGUMENT_TEXT);
   if (this != &other) {
     elements = std::move(other.elements);
     count = other.count;
