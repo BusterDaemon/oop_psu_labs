@@ -1,9 +1,7 @@
 #include "transform.hpp"
 #include "excepts.hpp"
-#include <iostream>
 #include <math.h>
 #include <stddef.h>
-#include <stdexcept>
 #include <stdint.h>
 #include <string>
 
@@ -32,11 +30,7 @@ uint64_t transformer11to9::transformation() {
   do {
     rem = divid % 9;
     divid = divid / 9;
-    try {
-      converted9.insert(converted9.begin(), rem + '0');
-    } catch (const std::length_error &e) {
-      std::cerr << e.what() << "\n";
-    }
+    converted9.insert(converted9.begin(), rem + '0');
   } while (divid != 0);
 
   result = std::stoul(converted9);
