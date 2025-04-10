@@ -18,14 +18,10 @@ template <typename T> set<T>::set() {
 }
 
 template <typename T> set<T>::set(T elem) {
-  try {
     this->count = 1;
     std::unique_ptr<T[]> set_elem(new T[this->count]);
     set_elem[this->count - 1] = std::move(elem);
     this->elements = std::move(set_elem);
-  } catch (const std::bad_alloc &e) {
-    std::cerr << _BAD_MEMORY_TEXT << e.what() << "\n";
-  }
 }
 
 template <typename T> set<T>::~set() {}
@@ -44,7 +40,6 @@ template <typename T> set<T> &set<T>::operator=(set<T> &&other) noexcept {
 }
 
 template <typename T> void set<T>::add_elem(T elem) {
-  try {
     size_t upd_size = this->count + 1;
     std::unique_ptr<T[]> upd_arr(new T[upd_size]);
 
@@ -59,9 +54,6 @@ template <typename T> void set<T>::add_elem(T elem) {
 
     this->elements = std::move(upd_arr);
     this->count = upd_size;
-  } catch (const std::bad_alloc &e) {
-    std::cerr << _BAD_MEMORY_TEXT << e.what() << "\n";
-  }
 }
 
 template <typename T> void set<T>::print() {
@@ -100,7 +92,6 @@ template <typename T> set<T> set<T>::operator-(const T &elem) {
   }
 
   set<T> upd_set;
-  try {
     size_t upd_size = this->count - occurences;
     std::unique_ptr<T[]> upd_arr(new T[upd_size]);
     for (size_t i = 0; i < upd_size; i++) {
@@ -113,9 +104,6 @@ template <typename T> set<T> set<T>::operator-(const T &elem) {
 
     upd_set.count = upd_size;
     upd_set.elements = std::move(upd_arr);
-  } catch (const std::bad_alloc &e) {
-    std::cerr << _BAD_MEMORY_TEXT << e.what() << "\n";
-  }
 
   return std::move(upd_set);
 }
