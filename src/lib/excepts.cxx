@@ -7,6 +7,9 @@ TransformerExcepts::TransformerExcepts(NumExcepts code) {
   case NumExcepts::NEG_BASE:
     this->reason = "Основание не может быть отрицательным!\0";
     break;
+  case NumExcepts::ILLEGAL_CHAR:
+    this->reason = "Недопустимое число 11-ричной системы!\0";
+    break;
   }
 }
 

@@ -4,7 +4,7 @@
 #include <exception>
 #include <stdint.h>
 
-enum class NumExcepts : uint16_t { NEG_BASE = 0xFF00 };
+enum class NumExcepts : uint16_t { NEG_BASE = 0xFF00, ILLEGAL_CHAR };
 
 class TransformerExcepts : std::exception {
 private:
